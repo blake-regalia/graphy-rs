@@ -2,6 +2,19 @@
 
 `graphy-wasm` exposes an in-browser RDF store and SPARQL engine through `wasm-bindgen`. The default build is single-threaded and keeps mutable data in memory.
 
+## Browser build
+
+Build the release package with:
+
+```sh
+npx --yes wasm-pack@0.15.0 build --release --target web \
+  --out-dir pkg-web crates/graphy-wasm -- --locked
+```
+
+The generated `crates/graphy-wasm/pkg-web` directory contains the ES module
+loader, TypeScript declarations, and `.wasm` module. Tagged releases provide
+the same directory inside the `graphy-vX.Y.Z-wasm-web.tar.gz` archive.
+
 ## Core API
 
 ```js

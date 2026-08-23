@@ -10,6 +10,8 @@ Install the Rust toolchain declared by the workspace, then run:
 cargo fmt --check
 cargo clippy --workspace --all-targets --all-features -- -D warnings
 cargo test --workspace --all-features
+npx --yes wasm-pack@0.15.0 build --release --target web \
+  --out-dir pkg-web crates/graphy-wasm -- --locked
 ```
 
 Changes to RDF or SPARQL behavior should also run the relevant commands in [docs/12-conformance.md](docs/12-conformance.md). Changes to benchmark claims should include the exact command, input, hardware, peak memory where relevant, and commit in [BENCHMARKS.md](BENCHMARKS.md).
@@ -28,5 +30,6 @@ Contributions are licensed under Apache-2.0 as described in [LICENSE](LICENSE).
 
 After CI passes on `main`, ensure the workspace version and lockfiles are
 current, then push the matching `vX.Y.Z` tag. The release workflow builds the
-native binary matrix, publishes checksummed archives, and generates GitHub
-release notes. Do not move or reuse a published version tag.
+native binary matrix and browser WebAssembly package, publishes checksummed
+archives, and generates GitHub release notes. Do not move or reuse a published
+version tag.

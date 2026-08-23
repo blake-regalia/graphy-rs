@@ -45,7 +45,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-core"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "thiserror",
 ]
@@ -62,14 +62,14 @@ dependencies = [
 
 [[package]]
 name = "graphy-sparql-syntax"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "graphy-core",
 ]
 
 [[package]]
 name = "graphy-turtle"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "graphy-core",
  "memchr",

@@ -83,9 +83,56 @@ jobs:
           path: dist/*.${{ matrix.archive }}
           if-no-files-found: error
 
+  build-wasm-web:
+    name: build (wasm web)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: release-wasm-web
+      - name: Check tag version
+        shell: bash
+        run: |
+          crate_version=$(sed -n 's/^version = "\([^"]*\)"/\1/p' Cargo.toml | head -1)
+          test "${GITHUB_REF_NAME}" = "v${crate_version}"
+      - name: Build browser package
+        run: >-
+          npx --yes wasm-pack@0.15.0 build --release --target web
+          --out-dir pkg-web crates/graphy-wasm -- --locked
+      - name: Check package layout
+        run: |
+          test -s crates/graphy-wasm/pkg-web/graphy_wasm.js
+          test -s crates/graphy-wasm/pkg-web/graphy_wasm.d.ts
+          test -s crates/graphy-wasm/pkg-web/graphy_wasm_bg.wasm
+          node --check crates/graphy-wasm/pkg-web/graphy_wasm.js
+          node crates/graphy-wasm/smoke-web.mjs
+      - name: Package browser archive
+        shell: bash
+        run: |
+          name="graphy-${GITHUB_REF_NAME}-wasm-web"
+          mkdir -p "dist/${name}/pkg-web"
+          cp crates/graphy-wasm/pkg-web/graphy_wasm.js \
+            crates/graphy-wasm/pkg-web/graphy_wasm.d.ts \
+            crates/graphy-wasm/pkg-web/graphy_wasm_bg.wasm \
+            crates/graphy-wasm/pkg-web/graphy_wasm_bg.wasm.d.ts \
+            crates/graphy-wasm/pkg-web/package.json \
+            "dist/${name}/pkg-web/"
+          cp README.md LICENSE "dist/${name}/"
+          tar -C dist -czf "dist/${name}.tar.gz" "${name}"
+          rm -r "dist/${name}"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: graphy-wasm-web
+          path: dist/*.tar.gz
+          if-no-files-found: error
+
   publish:
     name: publish GitHub release
-    needs: build
+    needs: [build, build-wasm-web]
     runs-on: ubuntu-24.04
     permissions:
       contents: write

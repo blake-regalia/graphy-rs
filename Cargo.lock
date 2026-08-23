@@ -552,7 +552,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-algebra"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "criterion",
  "graphy-core",
@@ -562,7 +562,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-cli"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "graphy-algebra",
  "graphy-core",
@@ -578,7 +578,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-core"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "proptest",
  "thiserror",
@@ -586,7 +586,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-engine"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "criterion",
  "getrandom 0.3.4",
@@ -606,7 +606,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-hdt"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "graphy-core",
  "graphy-store",
@@ -616,7 +616,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-interop"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "getrandom 0.3.4",
  "graphy-core",
@@ -626,7 +626,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-lsp"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "graphy-algebra",
  "graphy-pipe",
@@ -642,7 +642,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-pipe"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "criterion",
  "graphy-core",
@@ -653,7 +653,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-protocol"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "getrandom 0.3.4",
  "graphy-algebra",
@@ -665,7 +665,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-server"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "axum",
  "graphy-algebra",
@@ -683,7 +683,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-sparql-syntax"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "graphy-core",
  "graphy-turtle",
@@ -692,7 +692,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-store"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "arc-swap",
  "criterion",
@@ -710,7 +710,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-succinct"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "criterion",
  "proptest",
@@ -718,7 +718,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-turtle"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "criterion",
  "futures-io",
@@ -731,7 +731,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-wasm"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "axum",
  "graphy-algebra",

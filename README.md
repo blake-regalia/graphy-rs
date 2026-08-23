@@ -5,7 +5,7 @@ Rust. It combines immutable compressed base segments with a write-ahead-logged
 delta, exposes native and WebAssembly APIs, and includes command-line, HTTP,
 and language-server front ends.
 
-The workspace is pre-release (`0.0.1`) and under active development. The
+The workspace is pre-release (`0.0.2`) and under active development. The
 implemented conformance boundary is recorded in
 [docs/12-conformance.md](docs/12-conformance.md); roadmap items are not treated
 as shipped features.
@@ -38,6 +38,13 @@ target/release/graphy load ./store ./data.ttl
 target/release/graphy verify ./store
 target/release/graphy query ./store -e 'SELECT * WHERE { ?s ?p ?o } LIMIT 10'
 target/release/graphy serve ./store --bind 127.0.0.1:7878
+```
+
+Build the browser package with the same `wasm-pack` target used by releases:
+
+```sh
+npx --yes wasm-pack@0.15.0 build --release --target web \
+  --out-dir pkg-web crates/graphy-wasm -- --locked
 ```
 
 Run `graphy --help` or `graphy help <command>` for the authoritative CLI
@@ -112,10 +119,12 @@ selects those formats.
 
 ## Releases
 
-Version tags publish archives containing `graphy`, `graphy-lsp`, the README,
-and the license for Linux, macOS, and Windows on x86-64 and ARM64. Each GitHub
-Release also includes a `SHA256SUMS` file. A release tag must exactly match the
-workspace version, for example `v0.0.1` for version `0.0.1`.
+Version tags publish native archives containing `graphy` and `graphy-lsp` for
+Linux, macOS, and Windows on x86-64 and ARM64. They also publish a
+`wasm-pack --target web` browser archive whose `pkg-web` directory contains the
+JavaScript loader, TypeScript declarations, and WebAssembly module. Each
+GitHub Release includes a `SHA256SUMS` file. A release tag must exactly match
+the workspace version, for example `v0.0.2` for version `0.0.2`.
 
 ## License
 

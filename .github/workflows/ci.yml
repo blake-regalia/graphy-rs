@@ -44,3 +44,25 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: cargo install cargo-fuzz --locked --version 0.13.2
       - run: cargo +nightly fuzz build
+
+  wasm-web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: wasm-web
+      - name: Build browser package
+        run: >-
+          npx --yes wasm-pack@0.15.0 build --release --target web
+          --out-dir pkg-web crates/graphy-wasm -- --locked
+      - name: Check package layout
+        run: |
+          test -s crates/graphy-wasm/pkg-web/graphy_wasm.js
+          test -s crates/graphy-wasm/pkg-web/graphy_wasm.d.ts
+          test -s crates/graphy-wasm/pkg-web/graphy_wasm_bg.wasm
+          node --check crates/graphy-wasm/pkg-web/graphy_wasm.js
+          node crates/graphy-wasm/smoke-web.mjs
