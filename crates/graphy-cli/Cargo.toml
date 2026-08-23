@@ -1,0 +1,34 @@
+[package]
+name = "graphy-cli"
+description = "graphy command-line tool: bulk load, verify, and export segments"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "graphy"
+path = "src/main.rs"
+
+[features]
+default = []
+# Compile native outbound HTTP support. Launching a server with it still
+# requires the explicit `--allow-network` runtime flag.
+outbound-http = ["graphy-server/outbound-http"]
+
+[dependencies]
+graphy-algebra.workspace = true
+graphy-core.workspace = true
+graphy-engine.workspace = true
+graphy-hdt.workspace = true
+graphy-pipe.workspace = true
+graphy-server.workspace = true
+graphy-sparql-syntax.workspace = true
+graphy-store.workspace = true
+graphy-turtle.workspace = true
+memmap2.workspace = true
+
+[lints]
+workspace = true

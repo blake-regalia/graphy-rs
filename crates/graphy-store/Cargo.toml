@@ -1,0 +1,40 @@
+[package]
+name = "graphy-store"
+description = "Quad storage for graphy-rs: immutable base segments (PFC dictionary + succinct quad indexes + graph bitmaps), builders and readers"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+arc-swap.workspace = true
+graphy-core.workspace = true
+graphy-succinct.workspace = true
+memmap2.workspace = true
+roaring.workspace = true
+xxhash-rust.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+criterion.workspace = true
+graphy-turtle.workspace = true
+proptest.workspace = true
+
+[[bench]]
+name = "read"
+harness = false
+
+[[bench]]
+name = "write"
+harness = false
+
+[[bench]]
+name = "merge"
+harness = false
+
+[lints]
+workspace = true

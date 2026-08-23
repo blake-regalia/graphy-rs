@@ -1,0 +1,16 @@
+[package]
+name = "graphy-hdt"
+version = "0.0.1"
+edition = "2021"
+rust-version = "1.85"
+license = "Apache-2.0"
+description = "HDT file import/export for graphy (doc 03)"
+
+[dependencies]
+graphy-core = { path = "../graphy-core" }
+graphy-store = { path = "../graphy-store" }
+roaring.workspace = true
+thiserror.workspace = true
+
+[lints]
+workspace = true

@@ -1,0 +1,54 @@
+[package]
+name = "graphy-wasm"
+description = "Client-side quad-store + SPARQL engine for the browser (docs/11)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+graphy-algebra.workspace = true
+graphy-core.workspace = true
+graphy-engine.workspace = true
+graphy-pipe.workspace = true
+graphy-protocol.workspace = true
+graphy-server.workspace = true
+graphy-sparql-syntax.workspace = true
+graphy-store.workspace = true
+graphy-turtle.workspace = true
+wasm-bindgen.workspace = true
+# StoreServer (docs/11 §7): in-process dispatch against graphy-server's router.
+axum.workspace = true
+tower.workspace = true
+http-body-util.workspace = true
+serde_json.workspace = true
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+js-sys.workspace = true
+wasm-bindgen-futures = "0.4"
+wasm_thread = { version = "0.3", optional = true }
+
+[features]
+# Web-worker threads for the vectorized engine + data-parallel parser
+# (docs/11 §6): build with the nightly atomics + shared-memory flags — see
+# smoke-threads.sh. Adds the `loadAsync`/`queryAsync`/`updateAsync`
+# main-thread API (work runs on a spawned worker thread; the returned
+# Promise resolves without ever blocking the caller).
+wasm-threads = [
+    "graphy-engine/wasm-threads",
+    "graphy-turtle/wasm-threads",
+    "dep:wasm_thread",
+]
+
+[dev-dependencies]
+graphy-store.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+
+[lints]
+workspace = true

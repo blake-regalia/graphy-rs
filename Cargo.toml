@@ -1,0 +1,90 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/graphy-cli",
+    "crates/graphy-core",
+    "crates/graphy-hdt",
+    "crates/graphy-interop",
+    "crates/graphy-lsp",
+    "crates/graphy-sparql-syntax",
+    "crates/graphy-algebra",
+    "crates/graphy-engine",
+    "crates/graphy-protocol",
+    "crates/graphy-server",
+    "crates/graphy-pipe",
+    "crates/graphy-wasm",
+    "crates/graphy-store",
+    "crates/graphy-succinct",
+    "crates/graphy-turtle",
+]
+
+[workspace.package]
+version = "0.0.1"
+edition = "2021"
+rust-version = "1.85"
+license = "Apache-2.0"
+repository = "https://github.com/blake-regalia/graphy-rs"
+authors = ["Blake Regalia <blake.regalia@gmail.com>"]
+
+[workspace.dependencies]
+graphy-core = { path = "crates/graphy-core" }
+graphy-hdt = { path = "crates/graphy-hdt" }
+graphy-lsp = { path = "crates/graphy-lsp" }
+graphy-sparql-syntax = { path = "crates/graphy-sparql-syntax" }
+graphy-algebra = { path = "crates/graphy-algebra" }
+graphy-engine = { path = "crates/graphy-engine" }
+graphy-pipe = { path = "crates/graphy-pipe" }
+graphy-wasm = { path = "crates/graphy-wasm" }
+graphy-succinct = { path = "crates/graphy-succinct" }
+graphy-store = { path = "crates/graphy-store" }
+graphy-protocol = { path = "crates/graphy-protocol" }
+graphy-server = { path = "crates/graphy-server" }
+graphy-turtle = { path = "crates/graphy-turtle" }
+graphy-interop = { path = "crates/graphy-interop" }
+thiserror = "2"
+arc-swap = "1"
+memchr = "2"
+memmap2 = "0.9"
+futures-io = "0.3"
+roaring = "0.10"
+xxhash-rust = { version = "0.8", features = ["xxh3"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+proptest = "1"
+criterion = "0.5"
+regex = { version = "1" }
+# Language server (M11, docs/10): sync JSON-RPC over stdio (no tokio) + rope.
+lsp-server = "0.7"
+lsp-types = "0.97"
+ropey = "1.6"
+# Hash builtins (MD5/SHA1/SHA256/384/512, §17.4.4.10–14). sha2 pinned per
+# the MC design decision (BENCHMARKS MC addendum).
+# HTTP service (M9, doc 06): the async stack stays confined to graphy-server.
+axum = { version = "0.8", default-features = false }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "signal", "time"] }
+# In-process router dispatch (graphy-wasm StoreServer: oneshot + body collect).
+tower = { version = "0.5", default-features = false, features = ["util"] }
+http-body-util = "0.1"
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "rustls-tls"] }
+md-5 = "0.11"
+sha1 = "0.11"
+sha2 = "0.11"
+wasm-bindgen = "0.2"
+js-sys = "0.3"
+getrandom = { version = "0.3", features = ["wasm_js"] }
+
+[workspace.lints.rust]
+unsafe_op_in_unsafe_fn = "deny"
+missing_debug_implementations = "warn"
+
+[workspace.lints.clippy]
+undocumented_unsafe_blocks = "deny"
+dbg_macro = "warn"
+todo = "warn"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+
+[profile.bench]
+debug = true

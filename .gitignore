@@ -1,0 +1,13 @@
+/target
+*.profraw
+/testdata/rdf-tests/
+/testdata/oracles/
+/testdata/hdt/
+/fuzz/target/
+/fuzz/corpus/
+/fuzz/artifacts/
+.DS_Store
+.git-*
+.claude*
+/testdata/corpora/*
+!/testdata/corpora/README.md

@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>graphy-wasm OPFS persistence smoke</title></head>
+<body>
+<h1>graphy-wasm OPFS persistence (docs/11 §6)</h1>
+<pre id="out">running…</pre>
+<script type="module">
+import init, { GraphyStore } from './pkg-web/graphy_wasm.js';
+
+const out = [];
+const log = (k, v) => out.push(`${k}: ${v}`);
+const LOG_FILE = 'graphy.wal';
+
+async function readLog(dir) {
+  try {
+    const fh = await dir.getFileHandle(LOG_FILE);
+    const buf = await (await fh.getFile()).arrayBuffer();
+    return new Uint8Array(buf);
+  } catch {
+    return null;
+  }
+}
+
+async function appendLog(dir, bytes) {
+  const fh = await dir.getFileHandle(LOG_FILE, { create: true });
+  const size = (await fh.getFile()).size;
+  const w = await fh.createWritable({ keepExistingData: true });
+  await w.seek(size);
+  await w.write(bytes);
+  await w.close();
+}
+
+try {
+  await init();
+  const dir = await navigator.storage.getDirectory();
+  if (new URLSearchParams(location.search).has('reset')) {
+    await dir.removeEntry(LOG_FILE).catch(() => {});
+    log("RESET", "cleared");
+  }
+
+  const prior = await readLog(dir);
+  const store = GraphyStore.withLog(prior ?? undefined);
+  log("PRIOR_LOG_BYTES", prior ? prior.length : 0);
+  log("SIZE_AT_START", store.size());
+
+  if (store.size() === 0) {
+    store.load(`@prefix ex: <http://e/> .
+ex:alice ex:knows ex:bob ; ex:age 42 .
+ex:t ex:list ( 1 2 3 ) .
+`, "turtle");
+    store.update(
+      "PREFIX ex: <http://e/> INSERT DATA { GRAPH ex:g { ex:x ex:y ex:z } }");
+    const drained = store.drainLog();
+    await appendLog(dir, drained);
+    log("SAVED_BYTES", drained.length);
+    log("VERDICT", `SAVED size=${store.size()}`);
+  } else {
+    const srj = JSON.parse(store.query(
+      "PREFIX ex: <http://e/> SELECT ?o WHERE { ex:alice ex:knows ?o }"));
+    log("RESTORED_QUERY", JSON.stringify(srj.results.bindings));
+    // Compact the log in place, then keep going.
+    const packed = store.packLog();
+    const fh = await dir.getFileHandle(LOG_FILE, { create: true });
+    const w = await fh.createWritable();  // truncates
+    await w.write(packed);
+    await w.close();
+    log("PACKED_BYTES", packed.length);
+    log("VERDICT", `RESTORED size=${store.size()}`);
+  }
+} catch (e) {
+  log("VERDICT", `FAIL: ${e}`);
+}
+document.getElementById('out').textContent = out.join('\n');
+</script>
+</body>
+</html>

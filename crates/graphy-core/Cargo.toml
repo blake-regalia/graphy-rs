@@ -1,0 +1,24 @@
+[package]
+name = "graphy-core"
+description = "Core RDF term model for graphy-rs: concise term encoding, tagged term IDs, IRI resolution"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[features]
+default = []
+# Inline literals of <= 7 bytes of xsd:string directly into TermIds (doc 01 §8 DQ2;
+# keep/cut decision at M10 from measured hit rates).
+inline-short-strings = []
+
+[dependencies]
+thiserror.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true
+
+[lints]
+workspace = true

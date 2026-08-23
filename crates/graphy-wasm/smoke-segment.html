@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>graphy-wasm segment-image smoke</title></head>
+<body>
+<h1>graphy-wasm: 10⁶-quad segment image, fetch → OPFS cache (docs/11 §6)</h1>
+<pre id="out">running…</pre>
+<script type="module">
+import init, { GraphyStore } from './pkg-web/graphy_wasm.js';
+
+const out = [];
+const log = (k, v) => out.push(`${k}: ${v}`);
+const SEG = 'demo-segment';
+
+async function opfsDir() {
+  const root = await navigator.storage.getDirectory();
+  return root.getDirectoryHandle('segcache', { create: true });
+}
+
+async function cached(dir, rel) {
+  try {
+    const fh = await dir.getFileHandle(rel.replaceAll('/', '__'));
+    return new Uint8Array(await (await fh.getFile()).arrayBuffer());
+  } catch { return null; }
+}
+
+async function put(dir, rel, bytes) {
+  const fh = await dir.getFileHandle(rel.replaceAll('/', '__'), { create: true });
+  const w = await fh.createWritable();
+  await w.write(bytes);
+  await w.close();
+}
+
+try {
+  await init();
+  const dir = await opfsDir();
+  if (new URLSearchParams(location.search).has('reset')) {
+    const root = await navigator.storage.getDirectory();
+    await root.removeEntry('segcache', { recursive: true }).catch(() => {});
+    log("RESET", "cleared");
+  }
+  const dir2 = await opfsDir();
+
+  const t0 = performance.now();
+  let fetches = 0;
+  const get = async (rel) => {
+    const hit = await cached(dir2, rel);
+    if (hit) return hit;
+    fetches++;
+    const r = await fetch(`${SEG}/${rel}`);
+    if (!r.ok) throw new Error(`fetch ${rel}: ${r.status}`);
+    const bytes = new Uint8Array(await r.arrayBuffer());
+    await put(dir2, rel, bytes);
+    return bytes;
+  };
+
+  const manifestBytes = await get('MANIFEST.json');
+  const manifest = JSON.parse(new TextDecoder().decode(manifestBytes));
+  const rels = ['MANIFEST.json',
+    ...Object.keys(manifest.components), ...Object.keys(manifest.sidecars)];
+  const names = [], blobs = [];
+  let total = 0;
+  for (const rel of rels) {
+    const b = rel === 'MANIFEST.json' ? manifestBytes : await get(rel);
+    names.push(rel); blobs.push(b); total += b.length;
+  }
+  const tLoad = performance.now() - t0;
+
+  const t1 = performance.now();
+  const store = GraphyStore.fromSegment(names, blobs, undefined);
+  const tOpen = performance.now() - t1;
+
+  log("COMPONENT_FILES", names.length);
+  log("IMAGE_MB", (total / 1048576).toFixed(1));
+  log("NETWORK_FETCHES", fetches);
+  log("SOURCE", fetches > 0 ? "network" : "opfs-cache");
+  log("ACQUIRE_MS", tLoad.toFixed(0));
+  log("OPEN_MS", tOpen.toFixed(0));
+
+  const t2 = performance.now();
+  const srj = JSON.parse(store.query(
+    "SELECT ?o WHERE { <http://d.example/s42> <http://d.example/p2> ?o }"));
+  log("QUERY_MS", (performance.now() - t2).toFixed(1));
+  log("QUERY_ROWS", srj.results.bindings.length);
+
+  // Edits layer on top of the immutable image.
+  store.update("INSERT DATA { <http://d.example/annotated> <http://d.example/by> \"me\" }");
+  log("SIZE_AFTER_EDIT", store.size());
+
+  log("VERDICT", srj.results.bindings.length > 0 && store.size() === 1000001
+    ? "PASS" : "FAIL");
+} catch (e) {
+  log("VERDICT", `FAIL: ${e}`);
+}
+document.getElementById('out').textContent = out.join('\n');
+</script>
+</body>
+</html>

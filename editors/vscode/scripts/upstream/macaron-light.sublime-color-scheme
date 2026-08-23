@@ -1,0 +1,517 @@
+{
+	"globals": {
+		"foreground": "#333366",
+		"background": "#eff1f5",
+		"gutter": "#c0c5ce",
+		"caret": "#666666",
+		"accent": "#333333",
+		"invisibles": "#bbbbcc77",
+		"line_highlight": "#a7adba",
+		"multi_edit_highlight": "#a5eb5144",
+		"find_highlight": "#ffe792",
+		"find_highlight_foreground": "#ffe792",
+		"selection": "#dfe1e8",
+		"selection_border": "#b0cde7",
+		"shadow": "#dfe1e8"
+	},
+	"rules": [
+		{
+			"foreground": "hsla(0, 70%, 26%, 0.7)",
+			"font_style": "italic",
+			"scope": "comment"
+		},
+		{
+			"foreground": "#6600771b",
+			"background": "#ff6677dd",
+			"scope": "invalid"
+		},
+		{
+			"scope": "meta.prefix-declaration.either.registered",
+			"background": "hsla(220, 63%, 89%, 0.61)"
+		},
+		{
+			"scope": "meta.path.inverse",
+			"background": "hsla(226, 94%, 62%, 0.12)",
+			"font_style": "italic"
+		},
+		{
+			"scope": "meta.path.negated",
+			"background": "hsla(290, 84%, 70%, 0.38)"
+		},
+		{
+			"scope": "keyword.operator.path.quantifier.one-or-more",
+			"font_style": "bold"
+		},
+		{
+			"scope": "storage.modifier",
+			"font_style": "italic"
+		},
+		{
+			"scope": "meta.annotation",
+			"font_style": "italic",
+			"background": "hsla(0, 20%, 50%, 0.1)",
+			"foreground_adjust": "saturation(20%)"
+		},
+		{
+			"scope": "meta.term.role.label.triple-expression",
+			"background": "hsla(120, 80%, 50%, 0.1)",
+			"foreground_adjust": "saturation(55%)"
+		},
+		{
+			"scope": "meta.term.role.include",
+			"background": "hsla(52, 74%, 76%, 0.38)"
+		},
+		{
+			"scope": "meta.term.role.exclusion",
+			"background": "hsla(342, 74%, 84%, 0.35)"
+		},
+		{
+			"scope": "meta.triple.reified",
+			"background": "hsla(140, 80%, 70%, 0.2)",
+			"foreground_adjust": "saturation(55%)"
+		},
+		{
+			"scope": "meta.triple.reified-nested",
+			"background": "hsla(140, 80%, 70%, 0.4)",
+			"foreground_adjust": "saturation(55%)"
+		},
+		{
+			"name": "Regex Char Classes & Punctuation",
+			"scope": "string.regexp constant.other.character-class.predefined, string.regexp constant.other.character-class punctuation, string.regexp constant.other.character-class.set",
+			"foreground": "#8ABA8A"
+		},
+		{
+			"name": "Regex Char Class Dash",
+			"scope": "punctuation.definition.character-class.dash.regexp",
+			"foreground": "#577557"
+		},
+		{
+			"name": "Regex Char Class Negation",
+			"scope": "keyword.operator.negation.regexp",
+			"foreground": "#C59764"
+		},
+		{
+			"name": "Regex Char Classes (Predefined) & Escapes",
+			"scope": "string.regexp constant.other.character-class.predefined, string.regexp constant.character.escape, string.regexp keyword.other.back-reference",
+			"font_style": "bold"
+		},
+		{
+			"name": "Regex Char Classes (Character Property)",
+			"scope": "meta.character-property constant, meta.character-property punctuation",
+			"font_style": "italic",
+			"foreground": "#75CEA4"
+		},
+		{
+			"name": "Regex Char Classes (Character Property, Delimiters)",
+			"scope": "meta.character-property punctuation",
+			"foreground": "#9AD8BB"
+		},
+		{
+			"name": "Regex Char Escapes",
+			"scope": "string.regexp constant.character.escape",
+			"foreground": "#73D226"
+		},
+		{
+			"name": "Regex Backrefs",
+			"scope": "string.regexp keyword.other.back-reference",
+			"background": "#173A0A",
+			"foreground": "#37BC46"
+		},
+		{
+			"name": "Regex Quantifiers",
+			"scope": "keyword.operator.quantifier.regexp",
+			"foreground": "#7D9B6D"
+		},
+		{
+			"name": "Group Punctuation",
+			"scope": "string.regexp meta.group punctuation",
+			"foreground": "#59A233"
+		},
+		{
+			"name": "Regex Positive Assertions",
+			"scope": "keyword.control.anchor.regexp, string.regexp punctuation.definition.assertion.positive",
+			"foreground": "#75CEA4"
+		},
+		{
+			"name": "Regex Positive Assertion Text",
+			"scope": "meta.group.assertion.positive.regexp",
+			"foreground": "#5FC983"
+		},
+		{
+			"name": "Regex Negative Assertions",
+			"scope": "string.regexp punctuation.definition.assertion.negative",
+			"foreground": "#ED804A"
+		},
+		{
+			"name": "Regex Negative Assertion Text",
+			"scope": "meta.group.assertion.negative.regexp",
+			"foreground": "#AF9547"
+		},
+		{
+			"name": "Regex Capturing Groups 1",
+			"scope": "meta.group.capturing.regexp",
+			"background": "#7BB66420"
+		},
+		{
+			"name": "Regex Capturing Groups 2",
+			"scope": "meta.group.capturing.regexp meta.group.capturing.regexp",
+			"background": "#7BB66435"
+		},
+		{
+			"name": "Regex Capturing Groups 3",
+			"scope": "meta.group.capturing.regexp meta.group.capturing.regexp meta.group.capturing.regexp",
+			"background": "#7BB6644A"
+		},
+		{
+			"name": "Regex Capturing Groups 4",
+			"scope": "meta.group.capturing.regexp meta.group.capturing.regexp meta.group.capturing.regexp meta.group.capturing.regexp",
+			"background": "#7BB6645F"
+		},
+		{
+			"name": "Regex Capturing Groups 5",
+			"scope": "meta.group.capturing.regexp meta.group.capturing.regexp meta.group.capturing.regexp meta.group.capturing.regexp meta.group.capturing.regexp",
+			"background": "#7BB66474"
+		},
+		{
+			"name": "Regex Capturing Groups 6+",
+			"scope": "meta.group.capturing.regexp meta.group.capturing.regexp meta.group.capturing.regexp meta.group.capturing.regexp meta.group.capturing.regexp meta.group.capturing.regexp",
+			"background": "#7BB66489"
+		},
+		{
+			"name": "Regex Outer Punc",
+			"scope": "punctuation.definition.string.regexp",
+			"foreground": "#496549"
+		},
+		{
+			"name": "Regex Flags",
+			"scope": "string.regexp.flags",
+			"font_style": "italic",
+			"foreground": "#406E40"
+		},
+		{
+			"scope": "punctuation.definition.storage storage.type",
+			"foreground": "hsl(239.25, 42%, 38%)"
+		},
+		{
+			"scope": "storage.type",
+			"foreground": "hsl(231.2, 45%, 41%)"
+		},
+		{
+			"scope": "storage.modifier",
+			"foreground": "hsl(211.88, 52%, 47%)"
+		},
+		{
+			"scope": "keyword.operator",
+			"foreground": "hsl(223.15, 48%, 58%)"
+		},
+		{
+			"scope": "keyword.control",
+			"foreground": "hsl(223.15, 48%, 43%)"
+		},
+		{
+			"scope": "keyword.operator.word.qualifier",
+			"foreground": "hsl(215.1, 77%, 48%)"
+		},
+		{
+			"scope": "punctuation.section, meta.clause.where",
+			"foreground": "hsl(215.1, 77%, 58%)"
+		},
+		{
+			"scope": "support.function",
+			"foreground": "hsl(199, 85%, 53%)"
+		},
+		{
+			"scope": "punctuation.definition.expression",
+			"foreground": "hsl(223.15, 72%, 45%)"
+		},
+		{
+			"scope": "punctuation.definition.arguments",
+			"foreground": "hsl(239.25, 64%, 65%)"
+		},
+		{
+			"scope": "storage.type.variable",
+			"foreground": "hsl(223.15, 72%, 45%)"
+		},
+		{
+			"scope": "keyword.operator.path",
+			"foreground": "hsl(199, 85%, 53%)"
+		},
+		{
+			"scope": "punctuation.section.group",
+			"foreground": "hsl(231.2, 68%, 42%)"
+		},
+		{
+			"scope": "punctuation.section.block",
+			"foreground": "hsl(223.15, 72%, 45%)"
+		},
+		{
+			"scope": "meta.path.negated punctuation.section.group",
+			"foreground": "hsl(215.1, 77%, 48%)"
+		},
+		{
+			"scope": "meta.path.inverse punctuation.section.group",
+			"foreground": "hsl(215.1, 77%, 48%)"
+		},
+		{
+			"scope": "constant.language",
+			"foreground": "hsl(207.05, 81%, 50%)"
+		},
+		{
+			"scope": "keyword.operator.predicate",
+			"foreground": "hsl(199, 85%, 53%)"
+		},
+		{
+			"scope": "keyword.operator.unary.label",
+			"foreground": "hsl(223.15, 72%, 60%)"
+		},
+		{
+			"scope": "variable.other.readwrite.prefixed-name.namespace",
+			"foreground": "hsl(348, 61%, 49%)"
+		},
+		{
+			"scope": "punctuation.separator.prefixed-name",
+			"foreground": "hsl(345.6, 73%, 59%)"
+		},
+		{
+			"scope": "variable.other.member.prefixed-name.local",
+			"foreground": "hsl(344, 81%, 65%)"
+		},
+		{
+			"scope": "constant.character.escape.prefixed-name",
+			"foreground": "hsl(344.8, 77%, 62%)"
+		},
+		{
+			"scope": "support.constant.predicate.a",
+			"foreground": "hsl(352, 41%, 33%)"
+		},
+		{
+			"scope": "keyword.operator.unary.exclusion",
+			"foreground": "hsl(348.8, 57%, 45%)"
+		},
+		{
+			"scope": "punctuation.terminator.exclusion",
+			"foreground": "hsl(346.4, 69%, 70%)"
+		},
+		{
+			"scope": "variable.other.member.barename",
+			"foreground": "hsl(324.8, 75%, 45%)"
+		},
+		{
+			"scope": "keyword.operator.unary.reference.shape",
+			"foreground": "hsl(318.2, 89%, 29%)"
+		},
+		{
+			"scope": "meta.term.role.include punctuation.definition.iri",
+			"foreground": "hsl(342.4, 38%, 12%)"
+		},
+		{
+			"scope": "meta.term.role.include string.unquoted.iri",
+			"foreground": "hsl(322.59999999999997, 80%, 41%)"
+		},
+		{
+			"scope": "meta.term.role.label.shape-expression.declaration variable.other.readwrite.prefixed-name.namespace",
+			"foreground": "hsl(324.8, 75%, 25%)"
+		},
+		{
+			"scope": "meta.term.role.label.shape-expression.declaration variable.other.member.prefixed-name.local",
+			"foreground": "hsl(335.79999999999995, 52%, 62%)"
+		},
+		{
+			"scope": "punctuation.separator.datatype.symbol",
+			"foreground": "hsl(16.8, 39%, 26%)"
+		},
+		{
+			"scope": "meta.datatype variable.other.readwrite.prefixed-name.namespace",
+			"foreground": "hsl(21, 49%, 33%)"
+		},
+		{
+			"scope": "meta.datatype variable.other.member.prefixed-name.local",
+			"foreground": "hsl(27.3, 64%, 43%)"
+		},
+		{
+			"scope": "meta.datatype punctuation.separator.prefixed-name",
+			"foreground": "hsl(21, 49%, 33%)"
+		},
+		{
+			"scope": "meta.datatype string.unquoted.iri",
+			"foreground": "hsl(31.5, 74%, 50%)"
+		},
+		{
+			"scope": "meta.datatype constant.character.escape.iri",
+			"foreground": "hsl(25.2, 59%, 40%)"
+		},
+		{
+			"scope": "meta.datatype punctuation.definition.iri",
+			"foreground": "hsl(21, 49%, 33%)"
+		},
+		{
+			"scope": "punctuation.definition.blank-node-property-list",
+			"foreground": "hsl(29.4, 69%, 46%)"
+		},
+		{
+			"scope": "punctuation.definition.property-list",
+			"foreground": "hsl(29.4, 69%, 46%)"
+		},
+		{
+			"scope": "punctuation.definition.anonymous-blank-node",
+			"foreground": "hsl(23.1, 54%, 36%)"
+		},
+		{
+			"scope": "punctuation.separator.object",
+			"foreground": "hsl(25.2, 59%, 40%)"
+		},
+		{
+			"scope": "punctuation.separator.pair",
+			"foreground": "hsl(33.6, 78%, 53%)"
+		},
+		{
+			"scope": "punctuation.separator.predicate-object-list",
+			"foreground": "hsl(25.2, 59%, 40%)"
+		},
+		{
+			"scope": "punctuation.separator.property-list",
+			"foreground": "hsl(25.2, 59%, 40%)"
+		},
+		{
+			"scope": "punctuation.terminator.triple",
+			"foreground": "hsl(0, 0%, 0%)"
+		},
+		{
+			"scope": "punctuation.terminator.statement",
+			"foreground": "hsl(0, 0%, 0%)"
+		},
+		{
+			"scope": "punctuation.terminator.graph-pattern",
+			"foreground": "hsl(16.8, 39%, 26%)"
+		},
+		{
+			"scope": "punctuation.terminator.prefix-declaration",
+			"foreground": "hsl(16.8, 39%, 26%)"
+		},
+		{
+			"scope": "punctuation.terminator.shape-atom",
+			"foreground": "hsl(33.6, 78%, 53%)"
+		},
+		{
+			"scope": "variable.other.readwrite.var",
+			"foreground": "hsl(35.699999999999996, 85%, 52%)"
+		},
+		{
+			"scope": "meta.term.role.include variable.other.readwrite.prefixed-name.namespace",
+			"foreground": "hsl(25.2, 60%, 37%)"
+		},
+		{
+			"scope": "meta.term.role.include variable.other.member.prefixed-name.local",
+			"foreground": "hsl(33.6, 80%, 49%)"
+		},
+		{
+			"scope": "string.quoted.double.literal, string.quoted.single.literal",
+			"foreground": "hsl(148.75, 49%, 45%)"
+		},
+		{
+			"scope": "punctuation.definition.string",
+			"foreground": "hsl(113.75, 38%, 34%)"
+		},
+		{
+			"scope": "constant.character.escape.literal",
+			"foreground": "hsl(105, 35%, 32%)"
+		},
+		{
+			"scope": "string.regexp",
+			"foreground": "hsl(157.5, 52%, 48%)"
+		},
+		{
+			"scope": "string.unquoted.language-tag",
+			"foreground": "hsl(166.25, 55%, 50%)"
+		},
+		{
+			"scope": "punctuation.separator.language-tag.symbol",
+			"foreground": "hsl(113.75, 38%, 34%)"
+		},
+		{
+			"scope": "keyword.operator.arithmetic",
+			"foreground": "hsl(175, 58%, 53%)"
+		},
+		{
+			"scope": "constant.numeric",
+			"foreground": "hsl(148.75, 49%, 45%)"
+		},
+		{
+			"scope": "meta.numeric.exponent",
+			"foreground": "hsl(105, 35%, 32%)"
+		},
+		{
+			"scope": "punctuation.definition.repeat-range",
+			"foreground": "hsl(96.25000000000001, 32%, 29%)"
+		},
+		{
+			"scope": "punctuation.separator.repeat-range",
+			"foreground": "hsl(78.74999999999999, 26%, 24%)"
+		},
+		{
+			"scope": "support.constant",
+			"foreground": "hsl(148.75, 72%, 45%)"
+		},
+		{
+			"scope": "text.plain",
+			"foreground": "hsl(131.25, 64%, 40%)"
+		},
+		{
+			"scope": "string.unquoted.iri",
+			"foreground": "hsl(272, 38%, 55%)"
+		},
+		{
+			"scope": "constant.character.escape.iri",
+			"foreground": "hsl(294, 29%, 41%)"
+		},
+		{
+			"scope": "punctuation.definition.iri",
+			"foreground": "hsl(310.5, 22%, 31%)"
+		},
+		{
+			"scope": "punctuation.definition.collection",
+			"foreground": "hsl(272, 38%, 75%)"
+		},
+		{
+			"scope": "variable.other.readwrite.blank-node.underscore",
+			"foreground": "hsl(299.5, 26%, 38%)"
+		},
+		{
+			"scope": "variable.other.member.blank-node.label",
+			"foreground": "hsl(261, 43%, 62%)"
+		},
+		{
+			"scope": "meta.directive",
+			"foreground": "hsl(299.5, 46%, 37%)"
+		},
+		{
+			"scope": "punctuation.definition.annotation",
+			"foreground": "hsl(283, 58%, 47%)"
+		},
+		{
+			"scope": "keyword.operator.unary.include",
+			"foreground": "hsl(266.5, 71%, 57%)"
+		},
+		{
+			"scope": "meta.term.role.label.shape-expression.declaration punctuation.definition.iri",
+			"foreground": "hsl(316, 33%, 27%)"
+		},
+		{
+			"scope": "meta.term.role.label.shape-expression.declaration string.unquoted.iri",
+			"foreground": "hsl(272, 66%, 74%)"
+		}
+	],
+	"name": "Macaron Light (LinkedData)",
+	"variables": {
+		"root": "hsl(199, 56%, 51%)",
+		"scape": "hsl(344, 81%, 65%)",
+		"flare": "hsl(42, 98%, 66%)",
+		"echo": "hsl(175, 58%, 53%)",
+		"chip": "hsl(250, 48%, 69%)",
+		"root_boost": "hsl(199, 85%, 53%)",
+		"scape_boost": "hsl(316, 94%, 31%)",
+		"flare_boost": "hsl(42, 100%, 61%)",
+		"echo_boost": "hsl(175, 85%, 53%)",
+		"chip_boost": "hsl(250, 83%, 67%)"
+	}
+}

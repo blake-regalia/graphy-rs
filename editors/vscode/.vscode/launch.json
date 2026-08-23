@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/**/*.js"
+      ],
+      "preLaunchTask": "build server"
+    },
+    {
+      "name": "Attach to LSP server",
+      "type": "lldb",
+      "request": "attach",
+      "program": "${workspaceFolder}/../../target/debug/graphy-lsp"
+    }
+  ]
+}

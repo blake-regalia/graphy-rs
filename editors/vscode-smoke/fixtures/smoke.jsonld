@@ -1,0 +1,9 @@
+{
+  "@context": {
+    "name": "http://schema.org/name"
+  },
+  "@id": "http://example.org/x",
+  "name": "Alice",
+  "count": 3,
+  "flag": true
+}

@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>graphy-wasm threads smoke</title></head>
+<body>
+<h1>graphy-wasm threads (docs/11 §6 — engine pool + parallel parse on web workers)</h1>
+<pre id="out">running…</pre>
+<script type="module">
+// Everything runs on the main thread through the wasm-threads async API:
+// each operation is spawned onto a worker thread and awaited as a Promise,
+// so worker fan-out (which relays spawn requests through this context) and
+// blocking joins (banned here) both land where they are legal.
+import init, { GraphyStore } from './pkg-threads/graphy_wasm.js';
+
+const out = [];
+const log = (k, v) => out.push(`${k}: ${v}`);
+const show = () => { document.getElementById('out').textContent = out.join('\n'); };
+
+try {
+  const wasm = await init();
+  log("MEM_SHARED", wasm.memory.buffer instanceof SharedArrayBuffer);
+  log("SAB", typeof SharedArrayBuffer !== "undefined" ? "available" : "MISSING");
+
+  // --- Parallel parse: one N-Triples text, serial vs 4 workers.
+  let lines = [];
+  for (let i = 0; i < 300000; i++) {
+    lines.push(`<http://e/subject${i % 60000}> <http://e/p${i % 11}> "value ${i}" .`);
+  }
+  const text = lines.join("\n");
+  const serial = new GraphyStore();
+  serial.setThreads(1);
+  const tp1 = performance.now();
+  const n1 = await serial.loadAsync(text, "ntriples", undefined);
+  const dp1 = performance.now() - tp1;
+  const par = new GraphyStore();
+  par.setThreads(4);
+  const tp4 = performance.now();
+  const n4 = await par.loadAsync(text, "ntriples", undefined);
+  const dp4 = performance.now() - tp4;
+  log("PARSE_QUADS_SERIAL", n1);
+  log("PARSE_QUADS_PAR", n4);
+  log("PARSE_MS_SERIAL", dp1.toFixed(0));
+  log("PARSE_MS_PAR", dp4.toFixed(0));
+  show();
+  // Release the parse stores — wasm memory never shrinks, so the join
+  // phase below must reuse their pages.
+  serial.free();
+  par.free();
+
+  // --- Engine pool: a bind-join whose driving scan exceeds the 65,536-row
+  // engagement threshold (docs/05 §2), so >1 threads genuinely fan out.
+  let join = [];
+  for (let i = 0; i < 200000; i++) {
+    join.push(`<http://e/s${i % 100000}> <http://e/p> <http://e/o${i}> .`);
+  }
+  for (let i = 0; i < 200000; i++) {
+    const k = i % 100000;
+    join.push(`<http://e/${k < 2000 ? "s" : "t"}${k}> <http://e/q> <http://e/x${i % 97}> .`);
+  }
+  const store = new GraphyStore();
+  store.setThreads(4);
+  log("JOIN_DATA", await store.loadAsync(join.join("\n"), "ntriples", undefined));
+  const q = `SELECT ?s ?o ?x WHERE { ?s <http://e/p> ?o . ?s <http://e/q> ?x }`;
+  store.setThreads(1);
+  const t1 = performance.now();
+  const one = await store.queryAsync(q);
+  const d1 = performance.now() - t1;
+  store.setThreads(4);
+  const t4 = performance.now();
+  const four = await store.queryAsync(q);
+  const d4 = performance.now() - t4;
+  const rows1 = JSON.parse(one).results.bindings.length;
+  log("ROWS_1_THREAD", rows1);
+  log("ROWS_4_THREADS", JSON.parse(four).results.bindings.length);
+  log("IDENTICAL", one === four ? "yes" : "no");
+  log("MS_1_THREAD", d1.toFixed(0));
+  log("MS_4_THREADS", d4.toFixed(0));
+
+  log("VERDICT",
+    one === four && rows1 === 8000 && n1 === n4 && n1 === 300000
+      ? "PASS" : "FAIL");
+} catch (e) {
+  log("VERDICT", `FAIL: ${e}`);
+  if (e && e.stack) log("STACK", e.stack);
+}
+show();
+</script>
+</body>
+</html>

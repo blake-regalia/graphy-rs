@@ -1,0 +1,89 @@
+{
+  "format_version": 2,
+  "generation": 0,
+  "profile": "balanced",
+  "orderings": [
+    "spo",
+    "pos",
+    "osp"
+  ],
+  "has_graphs": false,
+  "counts": {
+    "quads": 0,
+    "triples": 0,
+    "shared": 0,
+    "subjects": 0,
+    "predicates": 0,
+    "objects": 0,
+    "graphs": 0,
+    "triple_terms": 0
+  },
+  "components": {
+    "dict/graphs.pfc": {
+      "bytes": 32,
+      "xxh3": "67debb6515363a89"
+    },
+    "dict/objects.pfc": {
+      "bytes": 32,
+      "xxh3": "67debb6515363a89"
+    },
+    "dict/predicates.pfc": {
+      "bytes": 32,
+      "xxh3": "67debb6515363a89"
+    },
+    "dict/shared.pfc": {
+      "bytes": 32,
+      "xxh3": "67debb6515363a89"
+    },
+    "dict/subjects.pfc": {
+      "bytes": 32,
+      "xxh3": "67debb6515363a89"
+    },
+    "dict/triple_terms.bin": {
+      "bytes": 8,
+      "xxh3": "c77b3abb6f87acd9"
+    },
+    "idx/osp.bt": {
+      "bytes": 80,
+      "xxh3": "9ba324565127f3bf"
+    },
+    "idx/pos.bt": {
+      "bytes": 64,
+      "xxh3": "2ffb6918c12c256e"
+    },
+    "idx/spo.bt": {
+      "bytes": 64,
+      "xxh3": "2ffb6918c12c256e"
+    },
+    "stats/charsets.bin": {
+      "bytes": 24,
+      "xxh3": "743df94ee4c78a2a"
+    },
+    "stats/pred.stats": {
+      "bytes": 8,
+      "xxh3": "c77b3abb6f87acd9"
+    }
+  },
+  "sidecars": {
+    "dict/graphs.hash": {
+      "bytes": 80,
+      "xxh3": "b6a41f589569c3b2"
+    },
+    "dict/objects.hash": {
+      "bytes": 80,
+      "xxh3": "b6a41f589569c3b2"
+    },
+    "dict/predicates.hash": {
+      "bytes": 80,
+      "xxh3": "b6a41f589569c3b2"
+    },
+    "dict/shared.hash": {
+      "bytes": 80,
+      "xxh3": "b6a41f589569c3b2"
+    },
+    "dict/subjects.hash": {
+      "bytes": 80,
+      "xxh3": "b6a41f589569c3b2"
+    }
+  }
+}

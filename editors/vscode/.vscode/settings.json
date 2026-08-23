@@ -1,0 +1,7 @@
+{
+  "graphy-lsp.trace.server": "verbose",
+  "[turtle]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "graphy.graphy-lsp"
+  }
+}

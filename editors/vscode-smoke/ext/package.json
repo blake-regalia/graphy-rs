@@ -1,0 +1,24 @@
+{
+  "name": "graphy-lsp-smoke",
+  "displayName": "graphy-lsp smoke client",
+  "description": "Minimal LSP client to smoke-test the graphy-lsp server (M11a exit criterion)",
+  "version": "0.0.1",
+  "publisher": "graphy-smoke",
+  "engines": { "vscode": "^1.91.0" },
+  "main": "./extension.js",
+  "activationEvents": [
+    "onLanguage:turtle",
+    "onLanguage:sparql",
+    "onLanguage:jsonld"
+  ],
+  "contributes": {
+    "languages": [
+      { "id": "turtle", "extensions": [".ttl", ".nt", ".nq", ".trig"] },
+      { "id": "sparql", "extensions": [".rq", ".ru", ".sparql"] },
+      { "id": "jsonld", "extensions": [".jsonld"] }
+    ]
+  },
+  "dependencies": {
+    "vscode-languageclient": "^10.1.0"
+  }
+}

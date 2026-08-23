@@ -1,0 +1,46 @@
+[package]
+name = "graphy-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+graphy-core = { path = "../crates/graphy-core" }
+graphy-turtle = { path = "../crates/graphy-turtle" }
+graphy-sparql-syntax = { path = "../crates/graphy-sparql-syntax" }
+
+# Standalone workspace (cargo-fuzz convention).
+[workspace]
+members = ["."]
+
+[[bin]]
+name = "parse_arbitrary"
+path = "fuzz_targets/parse_arbitrary.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "chunk_boundary"
+path = "fuzz_targets/chunk_boundary.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "round_trip"
+path = "fuzz_targets/round_trip.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "sparql_parse"
+path = "fuzz_targets/sparql_parse.rs"
+test = false
+doc = false
+bench = false

@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>graphy-wasm browser smoke</title></head>
+<body>
+<h1>graphy-wasm browser smoke (docs/11 M12d)</h1>
+<pre id="out">running…</pre>
+<script type="module">
+import init, { GraphyStore } from './pkg-web/graphy_wasm.js';
+
+const out = [];
+const log = (k, v) => out.push(`${k}: ${v}`);
+
+try {
+  await init();
+  const store = new GraphyStore();
+
+  const n = store.load(`@prefix ex: <http://e/> .
+ex:alice ex:knows ex:bob ; ex:age 42 .
+ex:bob ex:name "Bob"@en .
+ex:t ex:list ( 1 2 3 ) .
+`, "turtle");
+  log("SIZE_AFTER_LOAD", n);
+
+  const srj = JSON.parse(store.query(
+    "PREFIX ex: <http://e/> SELECT ?s ?o WHERE { ?s ex:knows ?o }"));
+  log("SELECT_BINDINGS", JSON.stringify(srj.results.bindings));
+
+  log("ASK_NOW", store.query("ASK { FILTER(YEAR(NOW()) >= 2026) }"));
+
+  store.update(
+    "PREFIX ex: <http://e/> INSERT DATA { GRAPH ex:g { ex:x ex:y ex:z } }");
+  log("SIZE_AFTER_UPDATE", store.size());
+
+  const construct = store.query(
+    "PREFIX ex: <http://e/> CONSTRUCT { ?s ex:linked ?o } WHERE { ?s ex:knows ?o }");
+  log("CONSTRUCT_LINES", construct.trim().split("\n").length);
+
+  const trig = store.export("trig");
+  log("TRIG_HAS_COLLECTION", trig.includes("(\n") ? "yes" : "no");
+  log("TRIG_HAS_GRAPH_BLOCK", trig.includes("{") ? "yes" : "no");
+
+  log("VERDICT", "PASS");
+} catch (e) {
+  log("VERDICT", `FAIL: ${e}`);
+}
+document.getElementById('out').textContent = out.join('\n');
+</script>
+</body>
+</html>

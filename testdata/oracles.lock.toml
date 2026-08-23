@@ -1,0 +1,15 @@
+version = 1
+
+[[oracle]]
+name = "oxigraph"
+repository = "https://github.com/oxigraph/oxigraph.git"
+revision = "d2d33273ab13b8d3d11f115d24c296eb873a62ad"
+license = "MIT OR Apache-2.0"
+paths = ["LICENSE-APACHE", "LICENSE-MIT", "testsuite/oxigraph-tests"]
+
+[[oracle]]
+name = "rdf4j"
+repository = "https://github.com/eclipse-rdf4j/rdf4j.git"
+revision = "270eeb5245ac0cdaf98e93411bc8dc0554737234"
+license = "BSD-3-Clause"
+paths = ["LICENSE", "testsuites/sparql/src/main/resources/testcases-sparql-1.1", "testsuites/sparql/src/main/resources/testcases-sparql-1.2"]

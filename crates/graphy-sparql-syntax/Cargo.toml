@@ -1,0 +1,19 @@
+[package]
+name = "graphy-sparql-syntax"
+description = "SPARQL 1.1 + 1.2 lexer and parser (Query + Update) with spans and quality diagnostics"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+graphy-core.workspace = true
+
+[dev-dependencies]
+graphy-turtle.workspace = true
+proptest.workspace = true
+
+[lints]
+workspace = true

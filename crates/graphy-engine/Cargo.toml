@@ -1,0 +1,41 @@
+[package]
+name = "graphy-engine"
+description = "SPARQL algebra evaluation against store snapshots"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+graphy-core.workspace = true
+graphy-store.workspace = true
+graphy-algebra.workspace = true
+regex.workspace = true
+md-5.workspace = true
+sha1.workspace = true
+sha2.workspace = true
+getrandom.workspace = true
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm_thread = { version = "0.3", optional = true }
+
+[dev-dependencies]
+criterion.workspace = true
+graphy-sparql-syntax.workspace = true
+graphy-turtle.workspace = true
+graphy-interop.workspace = true
+serde_json.workspace = true
+
+[[bench]]
+name = "query"
+harness = false
+
+[features]
+# Web-worker threads for the vectorized engine (docs/11 §6): requires the
+# nightly atomics build; see crates/graphy-wasm/smoke-threads notes.
+wasm-threads = ["dep:wasm_thread"]
+
+[lints]
+workspace = true

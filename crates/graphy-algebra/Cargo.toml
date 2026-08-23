@@ -1,0 +1,24 @@
+[package]
+name = "graphy-algebra"
+description = "SPARQL algebra: the spec's AST-to-algebra translation (§18.2) and engine-independent rewrites"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+graphy-core.workspace = true
+graphy-sparql-syntax.workspace = true
+
+[dev-dependencies]
+criterion.workspace = true
+graphy-turtle.workspace = true
+
+[[bench]]
+name = "parse"
+harness = false
+
+[lints]
+workspace = true

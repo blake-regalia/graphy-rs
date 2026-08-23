@@ -1,0 +1,6 @@
+@prefix ex: <http://example.org/> .
+ex:s ex:p [
+  ex:a ex:b ;
+  ex:c "lit"@en
+] .
+ex:s2 ex:q ( 1 2.5 true ) .

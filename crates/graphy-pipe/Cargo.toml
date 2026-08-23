@@ -1,0 +1,25 @@
+[package]
+name = "graphy-pipe"
+description = "In-memory quad pipeline for the graphy CLI: push-based operators over concise-bytes events with upstream cancellation (docs/09)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+graphy-core.workspace = true
+graphy-turtle.workspace = true
+memmap2.workspace = true
+xxhash-rust.workspace = true
+
+[dev-dependencies]
+criterion.workspace = true
+
+[[bench]]
+name = "pipeline"
+harness = false
+
+[lints]
+workspace = true

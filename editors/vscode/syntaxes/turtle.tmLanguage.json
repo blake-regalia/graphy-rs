@@ -1,0 +1,401 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Turtle",
+	"scopeName": "source.ttl",
+	"patterns": [
+		{
+			"include": "#comment"
+		},
+		{
+			"include": "#directive-at"
+		},
+		{
+			"include": "#directive-sparql"
+		},
+		{
+			"include": "#string-long-double"
+		},
+		{
+			"include": "#string-long-single"
+		},
+		{
+			"include": "#string-short-double"
+		},
+		{
+			"include": "#string-short-single"
+		},
+		{
+			"include": "#triple-x"
+		},
+		{
+			"include": "#iri"
+		},
+		{
+			"include": "#blank-node"
+		},
+		{
+			"include": "#datatype"
+		},
+		{
+			"include": "#language-tag"
+		},
+		{
+			"include": "#keyword-a"
+		},
+		{
+			"include": "#keyword-graph"
+		},
+		{
+			"include": "#boolean"
+		},
+		{
+			"include": "#prefixed-name"
+		},
+		{
+			"include": "#number"
+		},
+		{
+			"include": "#punctuation"
+		}
+	],
+	"repository": {
+		"comment": {
+			"match": "(#).*$",
+			"name": "comment.line.ttl",
+			"captures": {
+				"1": {
+					"name": "punctuation.definition.comment.ttl"
+				}
+			}
+		},
+		"directive-at": {
+			"begin": "(@)(prefix|base)\\b",
+			"end": "\\.",
+			"name": "meta.directive.ttl",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.definition.storage.prefix.at.ttl"
+				},
+				"2": {
+					"name": "storage.type.prefix.at.ttl"
+				}
+			},
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.terminator.prefix-declaration.ttl"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#comment"
+				},
+				{
+					"include": "#iri"
+				},
+				{
+					"include": "#prefixed-name"
+				}
+			]
+		},
+		"directive-sparql": {
+			"match": "(?i)^\\s*(prefix|base)\\b",
+			"captures": {
+				"1": {
+					"name": "storage.type.prefix.sparql.ttl"
+				}
+			}
+		},
+		"iri": {
+			"begin": "<",
+			"end": ">|$",
+			"name": "string.unquoted.iri.ttl",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.iri.begin.ttl"
+				}
+			},
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.iri.end.ttl"
+				}
+			},
+			"patterns": [
+				{
+					"match": "\\\\u[0-9A-Fa-f]{4}|\\\\U[0-9A-Fa-f]{8}",
+					"name": "constant.character.escape.iri.ttl"
+				},
+				{
+					"match": "[<\\\"{}|^`\\\\ ]",
+					"name": "invalid.illegal.iri.ttl"
+				}
+			]
+		},
+		"prefixed-name": {
+			"match": "((?:[A-Za-z\\x{00C0}-\\x{00D6}\\x{00D8}-\\x{00F6}\\x{00F8}-\\x{02FF}\\x{0370}-\\x{037D}\\x{037F}-\\x{1FFF}\\x{200C}-\\x{200D}\\x{2070}-\\x{218F}\\x{2C00}-\\x{2FEF}\\x{3001}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFFD}\\x{10000}-\\x{EFFFF}](?:[A-Za-z\\x{00C0}-\\x{00D6}\\x{00D8}-\\x{00F6}\\x{00F8}-\\x{02FF}\\x{0370}-\\x{037D}\\x{037F}-\\x{1FFF}\\x{200C}-\\x{200D}\\x{2070}-\\x{218F}\\x{2C00}-\\x{2FEF}\\x{3001}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFFD}\\x{10000}-\\x{EFFFF}_\\-0-9\\x{00B7}\\x{0300}-\\x{036F}\\x{203F}-\\x{2040}.]*[A-Za-z\\x{00C0}-\\x{00D6}\\x{00D8}-\\x{00F6}\\x{00F8}-\\x{02FF}\\x{0370}-\\x{037D}\\x{037F}-\\x{1FFF}\\x{200C}-\\x{200D}\\x{2070}-\\x{218F}\\x{2C00}-\\x{2FEF}\\x{3001}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFFD}\\x{10000}-\\x{EFFFF}_\\-0-9\\x{00B7}\\x{0300}-\\x{036F}\\x{203F}-\\x{2040}])?)?)(:)((?:(?:[A-Za-z\\x{00C0}-\\x{00D6}\\x{00D8}-\\x{00F6}\\x{00F8}-\\x{02FF}\\x{0370}-\\x{037D}\\x{037F}-\\x{1FFF}\\x{200C}-\\x{200D}\\x{2070}-\\x{218F}\\x{2C00}-\\x{2FEF}\\x{3001}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFFD}\\x{10000}-\\x{EFFFF}_:0-9]|(?:%[0-9A-Fa-f]{2}|\\\\[-_~.!$&'()*+,;=/?#@%]))(?:(?:[A-Za-z\\x{00C0}-\\x{00D6}\\x{00D8}-\\x{00F6}\\x{00F8}-\\x{02FF}\\x{0370}-\\x{037D}\\x{037F}-\\x{1FFF}\\x{200C}-\\x{200D}\\x{2070}-\\x{218F}\\x{2C00}-\\x{2FEF}\\x{3001}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFFD}\\x{10000}-\\x{EFFFF}_\\-0-9\\x{00B7}\\x{0300}-\\x{036F}\\x{203F}-\\x{2040}.:]|(?:%[0-9A-Fa-f]{2}|\\\\[-_~.!$&'()*+,;=/?#@%]))*(?:[A-Za-z\\x{00C0}-\\x{00D6}\\x{00D8}-\\x{00F6}\\x{00F8}-\\x{02FF}\\x{0370}-\\x{037D}\\x{037F}-\\x{1FFF}\\x{200C}-\\x{200D}\\x{2070}-\\x{218F}\\x{2C00}-\\x{2FEF}\\x{3001}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFFD}\\x{10000}-\\x{EFFFF}_\\-0-9\\x{00B7}\\x{0300}-\\x{036F}\\x{203F}-\\x{2040}:]|(?:%[0-9A-Fa-f]{2}|\\\\[-_~.!$&'()*+,;=/?#@%])))?)?)",
+			"captures": {
+				"1": {
+					"name": "variable.other.readwrite.prefixed-name.namespace.ttl"
+				},
+				"2": {
+					"name": "punctuation.separator.prefixed-name.namespace.ttl"
+				},
+				"3": {
+					"name": "variable.other.member.prefixed-name.local.ttl",
+					"patterns": [
+						{
+							"match": "(?:%[0-9A-Fa-f]{2}|\\\\[-_~.!$&'()*+,;=/?#@%])",
+							"name": "constant.character.escape.prefixed-name.local.ttl"
+						}
+					]
+				}
+			}
+		},
+		"blank-node": {
+			"match": "(_)(:)([A-Za-z\\x{00C0}-\\x{00D6}\\x{00D8}-\\x{00F6}\\x{00F8}-\\x{02FF}\\x{0370}-\\x{037D}\\x{037F}-\\x{1FFF}\\x{200C}-\\x{200D}\\x{2070}-\\x{218F}\\x{2C00}-\\x{2FEF}\\x{3001}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFFD}\\x{10000}-\\x{EFFFF}_0-9](?:[A-Za-z\\x{00C0}-\\x{00D6}\\x{00D8}-\\x{00F6}\\x{00F8}-\\x{02FF}\\x{0370}-\\x{037D}\\x{037F}-\\x{1FFF}\\x{200C}-\\x{200D}\\x{2070}-\\x{218F}\\x{2C00}-\\x{2FEF}\\x{3001}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFFD}\\x{10000}-\\x{EFFFF}_\\-0-9\\x{00B7}\\x{0300}-\\x{036F}\\x{203F}-\\x{2040}.]*[A-Za-z\\x{00C0}-\\x{00D6}\\x{00D8}-\\x{00F6}\\x{00F8}-\\x{02FF}\\x{0370}-\\x{037D}\\x{037F}-\\x{1FFF}\\x{200C}-\\x{200D}\\x{2070}-\\x{218F}\\x{2C00}-\\x{2FEF}\\x{3001}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFFD}\\x{10000}-\\x{EFFFF}_\\-0-9\\x{00B7}\\x{0300}-\\x{036F}\\x{203F}-\\x{2040}])?)",
+			"captures": {
+				"1": {
+					"name": "variable.other.readwrite.blank-node.underscore.ttl"
+				},
+				"2": {
+					"name": "punctuation.separator.prefixed-name.namespace.ttl"
+				},
+				"3": {
+					"name": "variable.other.member.blank-node.label.ttl"
+				}
+			}
+		},
+		"string-long-double": {
+			"begin": "\"\"\"",
+			"end": "\"\"\"",
+			"name": "string.quoted.double.literal.long.ttl",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.literal.double.long.ttl"
+				}
+			},
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.literal.double.long.ttl"
+				}
+			},
+			"patterns": [
+				{
+					"match": "\\\\u[0-9A-Fa-f]{4}|\\\\U[0-9A-Fa-f]{8}",
+					"name": "constant.character.escape.literal.unicode.long.ttl"
+				},
+				{
+					"match": "\\\\[tbnrf\\\"'\\\\]",
+					"name": "constant.character.escape.literal.escape.long.ttl"
+				},
+				{
+					"match": "\\\\.",
+					"name": "invalid.illegal.escape.ttl"
+				}
+			]
+		},
+		"string-long-single": {
+			"begin": "'''",
+			"end": "'''",
+			"name": "string.quoted.single.literal.long.ttl",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.literal.single.long.ttl"
+				}
+			},
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.literal.single.long.ttl"
+				}
+			},
+			"patterns": [
+				{
+					"match": "\\\\u[0-9A-Fa-f]{4}|\\\\U[0-9A-Fa-f]{8}",
+					"name": "constant.character.escape.literal.unicode.long.ttl"
+				},
+				{
+					"match": "\\\\[tbnrf\\\"'\\\\]",
+					"name": "constant.character.escape.literal.escape.long.ttl"
+				},
+				{
+					"match": "\\\\.",
+					"name": "invalid.illegal.escape.ttl"
+				}
+			]
+		},
+		"string-short-double": {
+			"begin": "\"",
+			"end": "\"|$",
+			"name": "string.quoted.double.literal.short.ttl",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.literal.double.short.ttl"
+				}
+			},
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.literal.double.short.ttl"
+				}
+			},
+			"patterns": [
+				{
+					"match": "\\\\u[0-9A-Fa-f]{4}|\\\\U[0-9A-Fa-f]{8}",
+					"name": "constant.character.escape.literal.unicode.short.ttl"
+				},
+				{
+					"match": "\\\\[tbnrf\\\"'\\\\]",
+					"name": "constant.character.escape.literal.escape.short.ttl"
+				},
+				{
+					"match": "\\\\.",
+					"name": "invalid.illegal.escape.ttl"
+				}
+			]
+		},
+		"string-short-single": {
+			"begin": "'",
+			"end": "'|$",
+			"name": "string.quoted.single.literal.short.ttl",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.literal.single.short.ttl"
+				}
+			},
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.literal.single.short.ttl"
+				}
+			},
+			"patterns": [
+				{
+					"match": "\\\\u[0-9A-Fa-f]{4}|\\\\U[0-9A-Fa-f]{8}",
+					"name": "constant.character.escape.literal.unicode.short.ttl"
+				},
+				{
+					"match": "\\\\[tbnrf\\\"'\\\\]",
+					"name": "constant.character.escape.literal.escape.short.ttl"
+				},
+				{
+					"match": "\\\\.",
+					"name": "invalid.illegal.escape.ttl"
+				}
+			]
+		},
+		"language-tag": {
+			"match": "(@)([A-Za-z]+(?:-[A-Za-z0-9]+)*)",
+			"captures": {
+				"1": {
+					"name": "punctuation.separator.language-tag.symbol.ttl"
+				},
+				"2": {
+					"name": "string.unquoted.language-tag.ttl"
+				}
+			}
+		},
+		"datatype": {
+			"begin": "\\^\\^",
+			"end": "(?!\\G)",
+			"contentName": "meta.datatype.ttl",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.separator.datatype.symbol.ttl"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#iri"
+				},
+				{
+					"include": "#prefixed-name"
+				}
+			]
+		},
+		"number": {
+			"patterns": [
+				{
+					"match": "[+-]?(?:\\d+\\.\\d*|\\.?\\d+)[eE][+-]?\\d+",
+					"name": "constant.numeric.double.ttl"
+				},
+				{
+					"match": "[+-]?(?:\\d+\\.\\d*|\\.\\d+)",
+					"name": "constant.numeric.decimal.ttl"
+				},
+				{
+					"match": "[+-]?\\d+",
+					"name": "constant.numeric.integer.ttl"
+				}
+			]
+		},
+		"boolean": {
+			"patterns": [
+				{
+					"match": "\\btrue\\b",
+					"name": "constant.language.boolean.true.ttl"
+				},
+				{
+					"match": "\\bfalse\\b",
+					"name": "constant.language.boolean.false.ttl"
+				}
+			]
+		},
+		"keyword-a": {
+			"match": "(?<![\\w:])a(?![A-Za-z\\x{00C0}-\\x{00D6}\\x{00D8}-\\x{00F6}\\x{00F8}-\\x{02FF}\\x{0370}-\\x{037D}\\x{037F}-\\x{1FFF}\\x{200C}-\\x{200D}\\x{2070}-\\x{218F}\\x{2C00}-\\x{2FEF}\\x{3001}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFFD}\\x{10000}-\\x{EFFFF}_\\-0-9\\x{00B7}\\x{0300}-\\x{036F}\\x{203F}-\\x{2040}:])",
+			"name": "support.constant.predicate.a.ttl"
+		},
+		"keyword-graph": {
+			"match": "(?i)\\bGRAPH\\b",
+			"name": "keyword.control.graph.trig"
+		},
+		"triple-x": {
+			"patterns": [
+				{
+					"match": "<<",
+					"name": "punctuation.definition.triple-x.begin.ttl"
+				},
+				{
+					"match": ">>",
+					"name": "punctuation.definition.triple-x.end.ttl"
+				}
+			]
+		},
+		"punctuation": {
+			"patterns": [
+				{
+					"match": ";",
+					"name": "punctuation.separator.predicate-object-list.ttl"
+				},
+				{
+					"match": ",",
+					"name": "punctuation.separator.object.ttl"
+				},
+				{
+					"match": "\\.",
+					"name": "punctuation.terminator.triple.ttl"
+				},
+				{
+					"match": "\\[",
+					"name": "punctuation.definition.blank-node-property-list.begin.ttl"
+				},
+				{
+					"match": "\\]",
+					"name": "punctuation.definition.blank-node-property-list.end.ttl"
+				},
+				{
+					"match": "\\(",
+					"name": "punctuation.section.collection.begin.ttl"
+				},
+				{
+					"match": "\\)",
+					"name": "punctuation.section.collection.end.ttl"
+				},
+				{
+					"match": "\\{",
+					"name": "punctuation.section.graph.begin.trig"
+				},
+				{
+					"match": "\\}",
+					"name": "punctuation.section.graph.end.trig"
+				}
+			]
+		}
+	}
+}

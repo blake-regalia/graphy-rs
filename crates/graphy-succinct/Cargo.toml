@@ -1,0 +1,22 @@
+[package]
+name = "graphy-succinct"
+description = "Succinct data structure primitives for graphy-rs: rank/select bitvectors, packed int sequences, front-coded dictionaries, wavelet matrix, external sorting"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+
+[dev-dependencies]
+proptest.workspace = true
+criterion.workspace = true
+
+[[bench]]
+name = "primitives"
+harness = false
+
+[lints]
+workspace = true

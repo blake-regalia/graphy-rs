@@ -1,0 +1,36 @@
+[package]
+name = "graphy-turtle"
+description = "Streaming read/write of the RDF text formats (N-Triples, N-Quads, Turtle, TriG; RDF 1.1 + 1.2) with a sans-io core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[features]
+# Web-worker threads for the data-parallel parse (docs/11 §6).
+wasm-threads = ["dep:wasm_thread"]
+default = []
+# Async reader adapters over futures-io AsyncRead (runtime-agnostic).
+async = ["dep:futures-io"]
+
+[dependencies]
+graphy-core.workspace = true
+memchr.workspace = true
+thiserror.workspace = true
+futures-io = { workspace = true, optional = true }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm_thread = { version = "0.3", optional = true }
+
+[dev-dependencies]
+proptest.workspace = true
+criterion.workspace = true
+
+[[bench]]
+name = "throughput"
+harness = false
+
+[lints]
+workspace = true
