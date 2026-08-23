@@ -55,8 +55,16 @@ name = "graphy-fuzz"
 version = "0.0.0"
 dependencies = [
  "graphy-core",
+ "graphy-sparql-syntax",
  "graphy-turtle",
  "libfuzzer-sys",
+]
+
+[[package]]
+name = "graphy-sparql-syntax"
+version = "0.0.1"
+dependencies = [
+ "graphy-core",
 ]
 
 [[package]]

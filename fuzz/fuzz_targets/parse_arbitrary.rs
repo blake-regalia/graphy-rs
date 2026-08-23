@@ -27,6 +27,7 @@ fuzz_target!(|data: &[u8]| {
             base: Some("http://fuzz.example/dir/doc".to_owned()),
             spec12: true,
             lenient,
+            ..Options::default()
         };
         drive!(TurtleParser::new(opts.clone()), data);
         drive!(TriGParser::new(opts.clone()), data);

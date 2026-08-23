@@ -59,7 +59,7 @@ fn kill9_child_writer() {
         for t in 0..WRITER_THREADS {
             let store = &store;
             scope.spawn(move || {
-                for i in 0u64.. {
+                for i in 0u64..=u64::MAX {
                     let s = subject(round, t, i);
                     store
                         .apply_with(&[], &[(&s, b">http://k/p", b"\"v", None)], durability)

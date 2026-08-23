@@ -23,3 +23,10 @@ Changes to RDF or SPARQL behavior should also run the relevant commands in [docs
 - Keep unsafe code narrowly scoped and document its safety invariants.
 
 Contributions are licensed under Apache-2.0 as described in [LICENSE](LICENSE).
+
+## Cutting a release
+
+After CI passes on `main`, ensure the workspace version and lockfiles are
+current, then push the matching `vX.Y.Z` tag. The release workflow builds the
+native binary matrix, publishes checksummed archives, and generates GitHub
+release notes. Do not move or reuse a published version tag.

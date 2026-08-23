@@ -110,6 +110,13 @@ N-Quads, HDT, and HDTQ. `graphy-interop` supplies JSON-LD and RDF/XML library
 codecs; the optional native `LOAD` capability uses them when content negotiation
 selects those formats.
 
+## Releases
+
+Version tags publish archives containing `graphy`, `graphy-lsp`, the README,
+and the license for Linux, macOS, and Windows on x86-64 and ARM64. Each GitHub
+Release also includes a `SHA256SUMS` file. A release tag must exactly match the
+workspace version, for example `v0.0.1` for version `0.0.1`.
+
 ## License
 
 Licensed under the [Apache License 2.0](LICENSE).
