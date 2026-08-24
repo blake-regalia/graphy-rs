@@ -66,3 +66,42 @@ jobs:
           test -s crates/graphy-wasm/pkg-web/graphy_wasm_bg.wasm
           node --check crates/graphy-wasm/pkg-web/graphy_wasm.js
           node crates/graphy-wasm/smoke-web.mjs
+
+  wasi-cli:
+    name: wasi-cli (${{ matrix.target }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: wasm32-wasip1
+            toolchain: stable
+            rustup_target: wasm32-wasip1
+            components: ""
+          - target: wasm32-wasip2
+            toolchain: stable
+            rustup_target: wasm32-wasip2
+            components: ""
+          - target: wasm32-wasip3
+            toolchain: nightly-2026-08-22
+            rustup_target: ""
+            components: rust-src
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ matrix.toolchain }}
+          targets: ${{ matrix.rustup_target }}
+          components: ${{ matrix.components }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: wasi-cli-${{ matrix.target }}
+      - name: Build CLI module
+        shell: bash
+        run: |
+          if [[ "${{ matrix.target }}" = wasm32-wasip3 ]]; then
+            ./scripts/build-wasip3.sh
+          else
+            cargo build --release --locked -p graphy-cli --target ${{ matrix.target }}
+          fi
+      - run: test -s target/${{ matrix.target }}/release/graphy.wasm

@@ -14,6 +14,14 @@ npx --yes wasm-pack@0.15.0 build --release --target web \
   --out-dir pkg-web crates/graphy-wasm -- --locked
 ```
 
+Release changes should also build the CLI for each supported WASI ABI:
+
+```sh
+cargo build --release --locked -p graphy-cli --target wasm32-wasip1
+cargo build --release --locked -p graphy-cli --target wasm32-wasip2
+./scripts/build-wasip3.sh
+```
+
 Changes to RDF or SPARQL behavior should also run the relevant commands in [docs/12-conformance.md](docs/12-conformance.md). Changes to benchmark claims should include the exact command, input, hardware, peak memory where relevant, and commit in [BENCHMARKS.md](BENCHMARKS.md).
 
 ## Expectations
@@ -30,6 +38,6 @@ Contributions are licensed under Apache-2.0 as described in [LICENSE](LICENSE).
 
 After CI passes on `main`, ensure the workspace version and lockfiles are
 current, then push the matching `vX.Y.Z` tag. The release workflow builds the
-native binary matrix and browser WebAssembly package, publishes checksummed
-archives, and generates GitHub release notes. Do not move or reuse a published
-version tag.
+native binary matrix, browser WebAssembly package, and WASI CLI modules;
+publishes checksummed artifacts; and generates GitHub release notes. Do not
+move or reuse a published version tag.

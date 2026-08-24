@@ -5,7 +5,7 @@ Rust. It combines immutable compressed base segments with a write-ahead-logged
 delta, exposes native and WebAssembly APIs, and includes command-line, HTTP,
 and language-server front ends.
 
-The workspace is pre-release (`0.0.2`) and under active development. The
+The workspace is pre-release (`0.0.3`) and under active development. The
 implemented conformance boundary is recorded in
 [docs/12-conformance.md](docs/12-conformance.md); roadmap items are not treated
 as shipped features.
@@ -122,9 +122,12 @@ selects those formats.
 Version tags publish native archives containing `graphy` and `graphy-lsp` for
 Linux, macOS, and Windows on x86-64 and ARM64. They also publish a
 `wasm-pack --target web` browser archive whose `pkg-web` directory contains the
-JavaScript loader, TypeScript declarations, and WebAssembly module. Each
-GitHub Release includes a `SHA256SUMS` file. A release tag must exactly match
-the workspace version, for example `v0.0.2` for version `0.0.2`.
+JavaScript loader, TypeScript declarations, and WebAssembly module. Standalone
+`graphy` CLI modules are published for `wasm32-wasip1`, `wasm32-wasip2`, and
+`wasm32-wasip3`; listening-server and outbound-network capabilities are not
+available in those builds. Each GitHub Release includes a `SHA256SUMS` file. A
+release tag must exactly match the workspace version, for example `v0.0.3` for
+version `0.0.3`.
 
 ## License
 

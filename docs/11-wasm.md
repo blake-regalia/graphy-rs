@@ -15,6 +15,27 @@ The generated `crates/graphy-wasm/pkg-web` directory contains the ES module
 loader, TypeScript declarations, and `.wasm` module. Tagged releases provide
 the same directory inside the `graphy-vX.Y.Z-wasm-web.tar.gz` archive.
 
+## WASI CLI builds
+
+The `graphy` command-line program also builds as a standalone WASI module:
+
+```sh
+rustup target add wasm32-wasip1 wasm32-wasip2
+cargo build --release --locked -p graphy-cli --target wasm32-wasip1
+cargo build --release --locked -p graphy-cli --target wasm32-wasip2
+
+rustup toolchain install nightly-2026-08-22 --component rust-src
+./scripts/build-wasip3.sh
+```
+
+WASIp1 produces a core WebAssembly module. WASIp2 and WASIp3 produce component
+modules and require compatible component-model runtimes. Tagged releases
+publish all three as `graphy-vX.Y.Z-wasm32-wasipN.wasm`. Listening sockets,
+federated `SERVICE`, outbound `LOAD`, and native memory mapping are unavailable
+in these builds. The WASIp3 script downloads and verifies the matching WASI
+SDK sysroot because Rust does not distribute a standard library for that Tier-3
+target yet.
+
 ## Core API
 
 ```js

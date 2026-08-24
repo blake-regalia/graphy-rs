@@ -529,11 +529,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "899def5c37c4fd7b2664648c28120ecec138e4d395b459e5ca34f9cce2dd77fd"
 dependencies = [
  "cfg-if",
- "js-sys",
  "libc",
  "r-efi 5.3.0",
  "wasip2",
- "wasm-bindgen",
 ]
 
 [[package]]
@@ -552,7 +550,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-algebra"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "criterion",
  "graphy-core",
@@ -562,7 +560,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-cli"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "graphy-algebra",
  "graphy-core",
@@ -578,7 +576,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-core"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "proptest",
  "thiserror",
@@ -586,10 +584,10 @@ dependencies = [
 
 [[package]]
 name = "graphy-engine"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "criterion",
- "getrandom 0.3.4",
+ "getrandom 0.4.3",
  "graphy-algebra",
  "graphy-core",
  "graphy-interop",
@@ -606,7 +604,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-hdt"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "graphy-core",
  "graphy-store",
@@ -616,9 +614,9 @@ dependencies = [
 
 [[package]]
 name = "graphy-interop"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
- "getrandom 0.3.4",
+ "getrandom 0.4.3",
  "graphy-core",
  "graphy-turtle",
  "serde_json",
@@ -626,7 +624,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-lsp"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "graphy-algebra",
  "graphy-pipe",
@@ -642,7 +640,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-pipe"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "criterion",
  "graphy-core",
@@ -653,9 +651,9 @@ dependencies = [
 
 [[package]]
 name = "graphy-protocol"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
- "getrandom 0.3.4",
+ "getrandom 0.4.3",
  "graphy-algebra",
  "graphy-core",
  "graphy-store",
@@ -665,7 +663,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-server"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "axum",
  "graphy-algebra",
@@ -683,7 +681,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-sparql-syntax"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "graphy-core",
  "graphy-turtle",
@@ -692,7 +690,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-store"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "arc-swap",
  "criterion",
@@ -710,7 +708,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-succinct"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "criterion",
  "proptest",
@@ -718,7 +716,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-turtle"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "criterion",
  "futures-io",
@@ -731,7 +729,7 @@ dependencies = [
 
 [[package]]
 name = "graphy-wasm"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "axum",
  "graphy-algebra",

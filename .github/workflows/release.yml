@@ -130,9 +130,62 @@ jobs:
           path: dist/*.tar.gz
           if-no-files-found: error
 
+  build-wasi:
+    name: build (${{ matrix.target }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: wasm32-wasip1
+            toolchain: stable
+            rustup_target: wasm32-wasip1
+            components: ""
+          - target: wasm32-wasip2
+            toolchain: stable
+            rustup_target: wasm32-wasip2
+            components: ""
+          - target: wasm32-wasip3
+            toolchain: nightly-2026-08-22
+            rustup_target: ""
+            components: rust-src
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ matrix.toolchain }}
+          targets: ${{ matrix.rustup_target }}
+          components: ${{ matrix.components }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: release-${{ matrix.target }}
+      - name: Check tag version
+        shell: bash
+        run: |
+          crate_version=$(sed -n 's/^version = "\([^"]*\)"/\1/p' Cargo.toml | head -1)
+          test "${GITHUB_REF_NAME}" = "v${crate_version}"
+      - name: Build CLI module
+        shell: bash
+        run: |
+          if [[ "${{ matrix.target }}" = wasm32-wasip3 ]]; then
+            ./scripts/build-wasip3.sh
+          else
+            cargo build --release --locked -p graphy-cli --target ${{ matrix.target }}
+          fi
+      - name: Stage module
+        run: |
+          mkdir -p dist
+          cp target/${{ matrix.target }}/release/graphy.wasm \
+            dist/graphy-${GITHUB_REF_NAME}-${{ matrix.target }}.wasm
+      - uses: actions/upload-artifact@v7
+        with:
+          name: graphy-${{ matrix.target }}
+          path: dist/*.wasm
+          if-no-files-found: error
+
   publish:
     name: publish GitHub release
-    needs: [build, build-wasm-web]
+    needs: [build, build-wasm-web, build-wasi]
     runs-on: ubuntu-24.04
     permissions:
       contents: write
